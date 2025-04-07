@@ -1,4 +1,3 @@
-
 ## 📋 Task Manager Frontend (React + Vite + TS)
 
 A full-featured task manager frontend built with:
@@ -115,4 +114,3 @@ npm run dev
 ### 🙌 Author
 
 Made with ❤️ by [Suhas](https://github.com/suhasm98)
-
