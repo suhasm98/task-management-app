@@ -1,129 +1,128 @@
 {
-    "info": {
-      "name": "Task Manager API",
-      "_postman_id": "f3c0e9c1-3b4e-4f3c-aaaa-1b2cd2e1c1f5",
-      "description": "A collection to test the Task Manager API built with Express and MongoDB",
-      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-    },
-    "item": [
-      {
-        "name": "Signup",
-        "request": {
-          "method": "POST",
-          "header": [{ "key": "Content-Type", "value": "application/json" }],
-          "body": {
-            "mode": "raw",
-            "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"test123\"\n}"
-          },
-          "url": {
-            "raw": "http://localhost:3000/api/signup",
-            "protocol": "http",
-            "host": ["localhost"],
-            "port": "3000",
-            "path": ["api", "signup"]
-          }
-        }
-      },
-      {
-        "name": "Login",
-        "request": {
-          "method": "POST",
-          "header": [{ "key": "Content-Type", "value": "application/json" }],
-          "body": {
-            "mode": "raw",
-            "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"test123\"\n}"
-          },
-          "url": {
-            "raw": "http://localhost:3000/api/login",
-            "protocol": "http",
-            "host": ["localhost"],
-            "port": "3000",
-            "path": ["api", "login"]
-          }
+  "info": {
+    "name": "Task Manager API",
+    "_postman_id": "f3c0e9c1-3b4e-4f3c-aaaa-1b2cd2e1c1f5",
+    "description": "A collection to test the Task Manager API built with Express and MongoDB",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Signup",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"test123\"\n}"
         },
-        "event": [
-          {
-            "listen": "test",
-            "script": {
-              "exec": [
-                "var jsonData = pm.response.json();",
-                "pm.environment.set(\"token\", jsonData.token);"
-              ],
-              "type": "text/javascript"
-            }
-          }
-        ]
-      },
-      {
-        "name": "Create Task",
-        "request": {
-          "method": "POST",
-          "header": [
-            { "key": "Content-Type", "value": "application/json" },
-            { "key": "Authorization", "value": "Bearer {{token}}" }
-          ],
-          "body": {
-            "mode": "raw",
-            "raw": "{\n  \"title\": \"Sample task from Postman\"\n}"
-          },
-          "url": {
-            "raw": "http://localhost:3000/api/tasks",
-            "protocol": "http",
-            "host": ["localhost"],
-            "port": "3000",
-            "path": ["api", "tasks"]
-          }
-        }
-      },
-      {
-        "name": "Get All Tasks",
-        "request": {
-          "method": "GET",
-          "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
-          "url": {
-            "raw": "http://localhost:3000/api/tasks",
-            "protocol": "http",
-            "host": ["localhost"],
-            "port": "3000",
-            "path": ["api", "tasks"]
-          }
-        }
-      },
-      {
-        "name": "Update Task",
-        "request": {
-          "method": "PUT",
-          "header": [
-            { "key": "Content-Type", "value": "application/json" },
-            { "key": "Authorization", "value": "Bearer {{token}}" }
-          ],
-          "body": {
-            "mode": "raw",
-            "raw": "{\n  \"title\": \"Updated Task\",\n  \"completed\": true\n}"
-          },
-          "url": {
-            "raw": "http://localhost:3000/api/tasks/{{taskId}}",
-            "protocol": "http",
-            "host": ["localhost"],
-            "port": "3000",
-            "path": ["api", "tasks", "{{taskId}}"]
-          }
-        }
-      },
-      {
-        "name": "Delete Task",
-        "request": {
-          "method": "DELETE",
-          "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
-          "url": {
-            "raw": "http://localhost:3000/api/tasks/{{taskId}}",
-            "protocol": "http",
-            "host": ["localhost"],
-            "port": "3000",
-            "path": ["api", "tasks", "{{taskId}}"]
-          }
+        "url": {
+          "raw": "http://localhost:3000/api/signup",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "signup"]
         }
       }
-    ]
-  }
-  
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"test123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "login"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"token\", jsonData.token);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create Task",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Sample task from Postman\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/tasks",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "tasks"]
+        }
+      }
+    },
+    {
+      "name": "Get All Tasks",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "http://localhost:3000/api/tasks",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "tasks"]
+        }
+      }
+    },
+    {
+      "name": "Update Task",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Updated Task\",\n  \"completed\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/tasks/{{taskId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "tasks", "{{taskId}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Task",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "http://localhost:3000/api/tasks/{{taskId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "tasks", "{{taskId}}"]
+        }
+      }
+    }
+  ]
+}

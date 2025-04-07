@@ -60,3 +60,4 @@ Clone the project, then:
 ```bash
 chmod +x setup.sh
 ./setup.sh
+```
