@@ -30,6 +30,7 @@ task-management-app/
 ## 🚀 Tech Stack
 
 ### 🔧 Backend (`server-side/`)
+
 - Node.js + Express
 - MongoDB + Mongoose
 - JWT for auth
@@ -39,6 +40,7 @@ task-management-app/
 - CLI tools: jq, mongosh
 
 ### 🎨 Frontend (`client-side/`)
+
 - React (Vite)
 - Redux Toolkit
 - Axios
@@ -52,7 +54,7 @@ task-management-app/
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/your-username/task-management-app.git
+git clone https://github.com/suhasm98/task-management-app
 cd task-management-app
 ```
 
@@ -90,4 +92,3 @@ npm run dev
 ## ✍️ Author
 
 Made with ❤️ by [Suhas]
-
