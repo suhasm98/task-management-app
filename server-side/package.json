@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -18,6 +19,7 @@
     "mongoose": "^7.2.2"
   },
   "devDependencies": {
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "prettier": "^3.5.3"
   }
 }
