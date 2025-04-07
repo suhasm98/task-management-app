@@ -11,7 +11,7 @@ const healthRoutes = require("./routes/healthRoutes");
 
 dotenv.config();
 const app = express();
-
+const allowedOrigins = process.env.CORS_ORIGINS?.split(',') || [];
 // Rate limiter: 100 requests per 15 minutes
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -19,12 +19,17 @@ const limiter = rateLimit({
   message: "Too many requests from this IP, please try again later.",
 });
 
-app.use(
-  cors({
-    origin: "http://localhost:5173", // your Vite frontend
-    credentials: true,
-  })
-);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 app.use(helmet());
 app.use(limiter);
 app.use(express.json());
