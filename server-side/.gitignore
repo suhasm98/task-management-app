@@ -1,0 +1,29 @@
+# Node.js
+node_modules/
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+server.log
+dist/
+
+# Logs
+logs/
+*.log
+
+# macOS
+.DS_Store
+
+# Vite build
+frontend/dist/
+frontend/node_modules/
+
+# Optional:
+coverage/
+.vscode/
+.idea/
+*.local
+
+# OS / editor files
+Thumbs.db
+*.swp
