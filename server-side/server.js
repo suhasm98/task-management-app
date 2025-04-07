@@ -11,7 +11,7 @@ const healthRoutes = require("./routes/healthRoutes");
 
 dotenv.config();
 const app = express();
-const allowedOrigins = process.env.CORS_ORIGINS?.split(",") || [
+const allowedOrigins = [
   "http://localhost:5173",
   "https://velvety-capybara-7e2f9a.netlify.app",
 ];
@@ -22,12 +22,18 @@ const limiter = rateLimit({
   message: "Too many requests from this IP, please try again later.",
 });
 
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow Postman/curl
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
 app.use(helmet());
 app.use(limiter);
 app.use(express.json());
