@@ -26,7 +26,7 @@ const Tasks = () => {
   const addTask = async () => {
     api
       .post("/tasks", { title })
-      .then((res) => {
+      .then(() => {
         toast.success("Task added")
         setTitle("")
         fetchTasks()

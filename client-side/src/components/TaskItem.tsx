@@ -1,7 +1,7 @@
 import { Task } from "../features/tasks/taskSlice"
 import api from "../api/axios"
 import { toast } from "react-toastify"
-import { Delete, PlayIcon, Trash, Trash2 } from "lucide-react"
+import { PlayIcon, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const TaskStatus = {
