@@ -111,6 +111,35 @@ npm run dev
 
 ---
 
+### 🚧 Future Enhancements
+
+Here are some improvements planned or suggested for future versions:
+
+- ✅ **Task Due Dates** – Add optional due dates and visual indicators for overdue tasks.
+- 🔄 **Edit Tasks** – Enable inline editing of task titles.
+- 🌓 **Dark Mode** – Toggle between light and dark theme using Tailwind’s dark mode.
+- 🎯 **Sort & Pagination** – Sort tasks by created date, title, or paginate if many tasks exist.
+- 🧠 **Form Validation** – Add schema-based validation using `react-hook-form` + `zod` or `yup`.
+- 🔁 **Token Expiry Handling** – Automatically logout users on token expiry.
+- 🔐 **Refresh Token Mechanism** – Improve security with httpOnly cookies & refresh token flow.
+- 🧪 **Testing** – Add unit & integration tests using React Testing Library and/or Cypress.
+- 🚀 **Switch to TanStack Query** – Replace manual Axios/Redux calls with TanStack Query for better caching, mutation handling, and background updates.
+
+---
+
+### 🔄 Planned Migration: TanStack Query (React Query)
+
+We plan to migrate data fetching logic (currently handled with Axios and Redux Toolkit) to **[TanStack Query](https://tanstack.com/query/latest)** for:
+
+- ✅ Simplified data fetching and caching
+- ✅ Automatic background refetching
+- ✅ Built-in error/loading state management
+- ✅ Optimistic updates and mutation handling
+
+This will improve code clarity and reduce boilerplate around async operations.
+
+---
+
 ### 🙌 Author
 
 Made with ❤️ by [Suhas](https://github.com/suhasm98)
