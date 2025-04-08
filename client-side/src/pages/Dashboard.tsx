@@ -1,65 +1,110 @@
-import { useEffect, useState } from "react";
-import api from "../api/axios";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import api from "@/api/axios"
+import { ChartConfig } from "@/components/ui/chart"
+
+import { CustomAreaChart } from "@/components/CustomAreaChart"
+import { CustomLineChart } from "@/components/CustomLineChart"
+import Layout from "@/components/Layout"
+
+import { ClipboardCheck, ClipboardList, Star } from "lucide-react"
 import {
-  fetchTasksStart,
-  fetchTasksSuccess,
-  fetchTasksFailure,
-} from "../features/tasks/taskSlice";
-import { toast } from "react-toastify";
-import Navbar from "@/components/Navbar";
-import TaskList from "@/components/TaskList";
+  fetchStats30dSuccess,
+  fetchStats7dSuccess,
+  fetchStatsFailure,
+  fetchStatsStart,
+} from "@/features/tasks/taskSlice"
+
+import useDashboard from "@/hooks/useDashboard"
+
+const chartConfig = {
+  todo: {
+    label: "Todo",
+    color: "#5051F9",
+  },
+} satisfies ChartConfig
+
+const chartConfigI = {
+  inprogress: {
+    label: "InProgress",
+    color: "#1EA7FF",
+  },
+} satisfies ChartConfig
+
+const chartConfigC = {
+  completed: {
+    label: "Completed",
+    color: "#FF614C",
+  },
+} satisfies ChartConfig
 
 export default function Dashboard() {
-  const dispatch = useDispatch();
-  const [title, setTitle] = useState("");
-
-  const fetchTasks = async () => {
+  const dispatch = useDispatch()
+  const {
+    completed30Data,
+    completed7Data,
+    completed7DataTotalCount,
+    inProgress7Data,
+    inProgress7TotalCount,
+    todo7Data,
+    todo7DataTotalCount,
+  } = useDashboard()
+  const fetchTaskStats = async () => {
     try {
-      dispatch(fetchTasksStart());
-      const res = await api.get("/tasks");
-      dispatch(fetchTasksSuccess(res.data));
-    } catch (err) {
-      dispatch(fetchTasksFailure("Failed to load tasks"));
+      dispatch(fetchStatsStart())
+      const [res7d, res30d] = await Promise.all([
+        api.get("/tasks/stats", { withCredentials: true }), // default 7d
+        api.get("/tasks/stats?range=30d", { withCredentials: true }),
+      ])
+      dispatch(fetchStats7dSuccess(res7d.data))
+      dispatch(fetchStats30dSuccess(res30d.data))
+    } catch (error: any) {
+      dispatch(
+        fetchStatsFailure(
+          error?.response?.data?.message || "Failed to fetch stats"
+        )
+      )
     }
-  };
-
-  const addTask = async () => {
-    try {
-      await api.post("/tasks", { title });
-      toast.success("Task added");
-      setTitle("");
-      fetchTasks();
-    } catch {
-      toast.error("Error adding task");
-    }
-  };
+  }
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
-
+    fetchTaskStats()
+  }, [])
   return (
-    <div>
-      <Navbar />
-      <div className="max-w-xl mx-auto mt-10 p-4 bg-white shadow rounded">
-        <h2 className="text-xl font-bold mb-4">My Tasks</h2>
-        <div className="flex gap-2 mb-4">
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="block input w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-            placeholder="Task title"
-          />
-          <button
-            onClick={addTask}
-            className="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Add
-          </button>
-        </div>
-        <TaskList fetchTasks={fetchTasks} />
+    <Layout>
+      <div className="w-full flex justify-between mt-7">
+        <CustomAreaChart
+          Icon={<Star className="h-4 w-4" color="#E1E3E7" />}
+          chartConfig={chartConfig}
+          chartData={todo7Data}
+          count={todo7DataTotalCount}
+          footer="new tasks since last 7 days"
+          heading="Todo"
+          chartKey="todo"
+        />
+        <CustomAreaChart
+          Icon={<ClipboardList className="h-4 w-4" color="#E1E3E7" />}
+          chartConfig={chartConfigI}
+          chartData={inProgress7Data}
+          count={inProgress7TotalCount}
+          footer="tasks since last 7 days"
+          heading="In Progress"
+          chartKey="inprogress"
+        />
+        <CustomAreaChart
+          Icon={<ClipboardCheck className="h-4 w-4" color="#E1E3E7" />}
+          chartConfig={chartConfigC}
+          chartData={completed7Data}
+          count={completed7DataTotalCount}
+          footer="tasks since last 7 days"
+          heading="Completed"
+          chartKey="completed"
+        />
       </div>
-    </div>
-  );
+      <div></div>
+      <div className="w-full mt-5">
+        <CustomLineChart chartData={completed30Data} />
+      </div>
+    </Layout>
+  )
 }
