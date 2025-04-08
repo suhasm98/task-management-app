@@ -43,15 +43,15 @@ const TaskList = ({ fetchTasks }: { fetchTasks: () => void }) => {
           Completed
         </button>
       </div>
-
-      {/* Render Tasks */}
-      {filteredTasks.length > 0 ? (
-        filteredTasks.map((task: Task) => (
-          <TaskItem key={task._id} task={task} refresh={fetchTasks} />
-        ))
-      ) : (
-        <p className="text-gray-500">No tasks found.</p>
-      )}
+      <div className="h-[60vh] overflow-auto">
+        {filteredTasks.length > 0 ? (
+          filteredTasks.map((task: Task) => (
+            <TaskItem key={task._id} task={task} refresh={fetchTasks} />
+          ))
+        ) : (
+          <p className="text-gray-500">No tasks found.</p>
+        )}
+      </div>
     </div>
   )
 }
